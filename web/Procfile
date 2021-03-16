@@ -1,0 +1,1 @@
+web: gunicorn -k eventlet -w 8 --no-sendfile project.app:app
