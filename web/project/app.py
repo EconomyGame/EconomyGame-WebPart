@@ -6,6 +6,7 @@ import os
 from project import config
 from project.extensions import ExtendedApi
 from project.utils.const import swagger_authorizations
+from project.utils.serialize import Serializer
 
 
 app = Flask(__name__, subdomain_matching=True)
@@ -27,6 +28,7 @@ app.register_blueprint(api_blueprint, url_prefix='/api/v1')
 
 mongo = PyMongo(app)
 cors = CORS(app, resources={r"/*": {"origins": "*"}})
+serializer = Serializer(app)
 
 
 from .errorhandlers import *
