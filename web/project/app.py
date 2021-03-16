@@ -32,6 +32,9 @@ serializer = Serializer(app)
 
 
 from .errorhandlers import *
+from project.services.config.instance import register_config
+
+register_config(api)
 
 
 if __name__ == '__main__':

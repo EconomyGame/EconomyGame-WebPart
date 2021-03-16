@@ -21,3 +21,8 @@ def insert_game(data):
 def update_game(game_id, data):
     """Обновление параметров игры"""
     return mongo.db.games.update_one({"_id": ObjectId(game_id)}, {"$set": data})
+
+
+def fetch_config():
+    """Получение актуального конфига игры"""
+    return mongo.db.config.find_one({})
