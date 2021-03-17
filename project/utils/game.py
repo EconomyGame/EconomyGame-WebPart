@@ -11,13 +11,10 @@ from project.utils.source import generate_sources
 
 def create_game(cfg=None):
     """Создание игры, выдача token для leader, etc"""
-    print("step debug 2")
     user = new_user()
     if cfg is None:
         cfg = fetch_config()
-    print("step debug 3")
     del cfg["_id"]
-
     data = {
         "is_started": False,
         "ref_code": generate_unique_code(),
@@ -28,10 +25,8 @@ def create_game(cfg=None):
         "datetime": dt.utcnow().isoformat(),
         "cfg": cfg
     }
-    print("step debug 4")
     game_id = insert_game(data)
     data["_id"] = ObjectId(game_id)
-    print("step debug 5")
     return dict(status=True, user=user, game=data)
 
 
@@ -85,7 +80,7 @@ def generate_unique_code():
     """Генерация уникального кода, который еще не использовался или устарел"""
     code = get_random_string(5)
     game = fetch_game_by_code(code)
-    while game is None or dt.fromisoformat(game["datetime"]) + timedelta(hours=6) < dt.utcnow():
+    while game is not None or dt.fromisoformat(game["datetime"]) + timedelta(hours=6) > dt.utcnow():
         code = get_random_string(5)
     return code
 
