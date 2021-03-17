@@ -7,7 +7,7 @@ def new_user():
     data = {
         "session_token": get_random_string(20),
         "is_ready": False,
-        "balance": 0,
+        "balance": 350000,
         "profit_per_sec": 0,
         "datetime": dt.utcnow().isoformat()
     }
