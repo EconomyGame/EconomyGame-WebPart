@@ -14,7 +14,9 @@ def create_game(cfg=None):
     user = new_user()
     if cfg is None:
         cfg = fetch_config()
+    print("wtaaaa1241")
     del cfg["_id"]
+    print("wtaaaa")
     data = {
         "is_started": False,
         "ref_code": generate_unique_code(),
