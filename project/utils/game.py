@@ -88,15 +88,10 @@ def generate_unique_code():
 def validate_game(game_object, config):
     """Валидация игровой сессии"""
     try:
-        print(game_object)
-        print(game_object is None)
-        print(datetime.datetime.fromisoformat(game_object["datetime"]) + \
-               timedelta(hours=2) < datetime.datetime.utcnow())
-        print(len(game_object["users"]) >= config["count_users"])
-        assert game_object is None
+        assert game_object is not None
         assert datetime.datetime.fromisoformat(game_object["datetime"]) +\
-               timedelta(hours=2) < datetime.datetime.utcnow()
-        assert len(game_object["users"]) >= config["count_users"]
+               timedelta(hours=2) >= datetime.datetime.utcnow()
+        assert len(game_object["users"]) < config["count_users"]
     except KeyError:
         raise AssertionError
 
@@ -104,6 +99,6 @@ def validate_game(game_object, config):
 def validate_to_start(game_object,):
     """Валидация готовности игры к старту"""
     try:
-        assert all(map(lambda x: x["is_ready"], game_object["users"])) is False
+        assert all(map(lambda x: x["is_ready"], game_object["users"]))
     except KeyError:
         raise AssertionError
