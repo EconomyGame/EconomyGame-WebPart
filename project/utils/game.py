@@ -89,7 +89,7 @@ def validate_game(game_object, config):
 
 
 def validate_to_start(game_object, config):
-    """Валидация игровой сессии"""
+    """Валидация готовности игры к старту"""
     try:
         assert all(map(lambda x: x["is_ready"], game_object["users"])) is False
     except KeyError:
