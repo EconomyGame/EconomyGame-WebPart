@@ -25,6 +25,8 @@ def create_game(cfg=None):
         "datetime": dt.utcnow().isoformat(),
         "cfg": cfg
     }
+    print("what")
+    print(data)
     game_id = insert_game(data)
     print(game_id)
     data["_id"] = ObjectId(game_id)
