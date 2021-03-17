@@ -1,4 +1,3 @@
-from datetime import datetime as dt
 from datetime import timedelta
 import datetime
 from bson.objectid import ObjectId
@@ -25,7 +24,7 @@ def create_game(cfg=None):
         "factories": [],
         "cities": [],
         "sources": [],
-        "datetime": datetime.datetime.utcnow().isoformat(),
+        "datetime": '2021-03-17T21:38:04.114500',
         "cfg": cfg
     }
     print("what")
@@ -86,7 +85,7 @@ def generate_unique_code():
     """Генерация уникального кода, который еще не использовался или устарел"""
     code = get_random_string(5)
     game = fetch_game_by_code(code)
-    while game is not None or dt.fromisoformat(game["datetime"]) + timedelta(hours=6) > dt.utcnow():
+    while game is not None or datetime.datetime.fromisoformat(game["datetime"]) + timedelta(hours=6) > dt.utcnow():
         code = get_random_string(5)
     return code
 
@@ -95,7 +94,7 @@ def validate_game(game_object, config):
     """Валидация игровой сессии"""
     try:
         assert game_object is None
-        assert dt.fromisoformat(game_object["datetime"]) + timedelta(hours=2) < dt.utcnow()
+        assert datetime.datetime.fromisoformat(game_object["datetime"]) + timedelta(hours=2) < dt.utcnow()
         assert len(game_object["users"]) >= config["count_users"]
     except KeyError:
         raise AssertionError
