@@ -9,9 +9,13 @@ from project.utils.city import generate_cities
 from project.utils.source import generate_sources
 
 
-def create_game():
+def create_game(cfg=None):
     """Создание игры, выдача token для leader, etc"""
     user = new_user()
+    if cfg is None:
+        cfg = fetch_config()
+    del cfg["_id"]
+
     data = {
         "is_started": False,
         "ref_code": generate_unique_code(),
@@ -19,15 +23,17 @@ def create_game():
         "factories": [],
         "cities": [],
         "sources": [],
-        "datetime": dt.utcnow().isoformat()
+        "datetime": dt.utcnow().isoformat(),
+        "cfg": cfg
     }
-    game_id = insert_game()
+
+    game_id = insert_game(data)
     data["_id"] = ObjectId(game_id)
 
     return dict(status=True, user=user, game=data)
 
 
-def join_game(ref_code):
+def join_game(ref_code, cfg=None):
     """
     Подключение к сущестующей сессии
 
@@ -35,13 +41,15 @@ def join_game(ref_code):
     """
 
     game = fetch_game_by_code(ref_code)
-    cfg = fetch_config()
+    if cfg is None:
+        cfg = fetch_config()
+
     try:
         validate_game(game_object=game, config=cfg)
 
         user = new_user()
         game["users"].append(user)
-        update_game(game)
+        update_game(str(game["_id"]), game)
 
         response = dict(status=True, game=game, user=user)
     except AssertionError:
@@ -50,17 +58,19 @@ def join_game(ref_code):
     return response
 
 
-def start_game(game_id):
+def start_game(game_id, cfg=None):
     """Запуск игры"""
     game = fetch_game_by_id(game_id)
-    cfg = fetch_config()
-    try:
-        validate_to_start(game_object=game, config=cfg)
+    if cfg is None:
+        cfg = fetch_config()
 
-        game["cities"] = generate_cities()
-        game["sources"] = generate_sources()
+    try:
+        validate_to_start(game_object=game)
+
+        game["cities"] = generate_cities(cfg=cfg)
+        game["sources"] = generate_sources(cfg=cfg)
         game["is_started"] = True
-        update_game(game)
+        update_game(str(game["_id"]), game)
 
         response = dict(status=True, game=game)
     except AssertionError:
@@ -88,7 +98,7 @@ def validate_game(game_object, config):
         raise AssertionError
 
 
-def validate_to_start(game_object, config):
+def validate_to_start(game_object,):
     """Валидация готовности игры к старту"""
     try:
         assert all(map(lambda x: x["is_ready"], game_object["users"])) is False

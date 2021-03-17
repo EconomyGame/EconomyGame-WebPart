@@ -1,13 +1,22 @@
 from datetime import datetime as dt
-from datetime import timedelta
-from bson.objectid import ObjectId
 
 from project.utils.mongo import fetch_config
-from project.utils.resource import generate_resource_levels, generate_resource_stages
 
 
-def generate_sources():
+def generate_sources(cfg=None):
     """Создание источников с ресурсами для игровой сессии"""
-    cfg = fetch_config()
-    sources = []
+    if cfg is None:
+        cfg = fetch_config()
+
+    remain = (cfg["cities"]["upgrades_levels"]["level_1"] +
+              cfg["cities"]["upgrades_levels"]["level_2"] +
+              cfg["cities"]["upgrades_levels"]["level_3"] +
+              cfg["cities"]["upgrades_levels"]["level_4"]) * cfg["count_cities"] // cfg["count_users"] * 2
+    sources = [{
+        "resource_id": x["resource_id"],
+        "coords": x["coords"],
+        "remain": remain,
+        "delta": 0,
+        "datetime": dt.utcnow()
+    } for x in cfg["map"]["sources"]]
     return sources
