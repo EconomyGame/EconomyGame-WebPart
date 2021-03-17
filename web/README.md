@@ -44,6 +44,7 @@
 | coords | tuple, ints | Координаты расположения города |
 | resource_levels | dict | Уровни прокачки ресурсов, в диапазоне [1, 4] |
 | resource_stage | dict | Уровни прокачки ресурсов, в диапазоне [0, level_max] |
+| resource_delta | dict | Delta, на которую изменяется уровень за 1 секунду |
 | datetime | str | Время последнего обновления информации по городу в UTC (ISO 8601) |
 
 ## Структура объекта Source
@@ -52,6 +53,7 @@
 | resource_id | int | ID ресурса, в диапазоне [1, 4]  |
 | coords | tuple, ints | Координаты расположения источников |
 | remain | int | Остатки ресурса в источнике |
+| delta | int | Delta, на которую изменяется ресурс источника за 1 секунду |
 | datetime | str | Время последнего обновления информации по источнику в UTC (ISO 8601) |
 
 **Game WEB Api** by *[sevadp](https://github.com/sevadp)*
