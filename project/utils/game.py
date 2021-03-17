@@ -19,7 +19,7 @@ def create_game(cfg=None):
     print("wtaaaa")
     data = {
         "is_started": False,
-        "ref_code": generate_unique_code(),
+        "ref_code": "sevatest",
         "users": [user],
         "factories": [],
         "cities": [],
