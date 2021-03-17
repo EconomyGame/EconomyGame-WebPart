@@ -88,12 +88,16 @@ def generate_unique_code():
 def validate_game(game_object, config):
     """Валидация игровой сессии"""
     try:
+        print(game_object)
+        print(game_object is None)
+        print(datetime.datetime.fromisoformat(game_object["datetime"]) + \
+               timedelta(hours=2) < datetime.datetime.utcnow())
+        print(len(game_object["users"]) >= config["count_users"])
         assert game_object is None
         assert datetime.datetime.fromisoformat(game_object["datetime"]) +\
                timedelta(hours=2) < datetime.datetime.utcnow()
         assert len(game_object["users"]) >= config["count_users"]
     except KeyError:
-        print("validate game error")
         raise AssertionError
 
 
