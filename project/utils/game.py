@@ -93,6 +93,7 @@ def validate_game(game_object, config):
                timedelta(hours=2) < datetime.datetime.utcnow()
         assert len(game_object["users"]) >= config["count_users"]
     except KeyError:
+        print("validate game error")
         raise AssertionError
 
 
