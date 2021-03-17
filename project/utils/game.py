@@ -26,6 +26,7 @@ def create_game(cfg=None):
         "cfg": cfg
     }
     game_id = insert_game(data)
+    print(game_id)
     data["_id"] = ObjectId(game_id)
     return dict(status=True, user=user, game=data)
 

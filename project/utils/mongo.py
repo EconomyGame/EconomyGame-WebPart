@@ -15,7 +15,7 @@ def fetch_game_by_code(ref_code):
 
 def insert_game(data):
     """Создание игры с назначенной data"""
-    return mongo.db.games.insert_one(data).inserted_id.__str__()
+    return mongo.db.games.insert_one(data).inserted_id
 
 
 def update_game(game_id, data):
