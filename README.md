@@ -5,6 +5,10 @@
 
 [![View in Swagger](http://jessemillar.github.io/view-in-swagger-button/button.svg)](http://tp-project2021.herokuapp.com/api/v1/docs/)
 
+## Небольшая документация по проекту:
+[![View in Google Docs](https://www.google.com/images/about/docs-icon.svg)](https://docs.google.com/document/d/1IIvH7Ap459A4p6TIDsrDcdgSbhv-n3BgC_X6o2K-rjQ/edit?usp=sharing)
+
+
 ## Структура объекта Game
 | Имя | Тип | Описание |
 | --- |-----|----------|
