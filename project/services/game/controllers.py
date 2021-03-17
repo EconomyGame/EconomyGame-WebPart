@@ -10,10 +10,11 @@ api = Namespace('Game Lobby', description='Game Lobby service')
 
 @api.route('/create_game')
 class CreateGame(Resource):
-    def get(self):
+    def post(self):
         try:
+            print("step debug 1")
             _request = create_game()
-
+            print("step debug after 1")
             if not _request["status"]:
                 return serializer.jsonify({"status": False, "message": "Game creation error"})
 

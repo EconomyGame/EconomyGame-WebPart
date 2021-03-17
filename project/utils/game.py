@@ -11,9 +11,11 @@ from project.utils.source import generate_sources
 
 def create_game(cfg=None):
     """Создание игры, выдача token для leader, etc"""
+    print("step debug 2")
     user = new_user()
     if cfg is None:
         cfg = fetch_config()
+    print("step debug 3")
     del cfg["_id"]
 
     data = {
@@ -26,10 +28,10 @@ def create_game(cfg=None):
         "datetime": dt.utcnow().isoformat(),
         "cfg": cfg
     }
-
+    print("step debug 4")
     game_id = insert_game(data)
     data["_id"] = ObjectId(game_id)
-
+    print("step debug 5")
     return dict(status=True, user=user, game=data)
 
 
