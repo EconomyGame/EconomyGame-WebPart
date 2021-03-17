@@ -17,7 +17,7 @@ def create_game(cfg=None):
     del cfg["_id"]
     data = {
         "is_started": False,
-        "ref_code": "sevatest",
+        "ref_code": generate_unique_code(),
         "users": [user],
         "factories": [],
         "cities": [],
