@@ -14,9 +14,7 @@ def create_game(cfg=None):
     user = new_user()
     if cfg is None:
         cfg = fetch_config()
-    print("wtaaaa1241")
     del cfg["_id"]
-    print("wtaaaa")
     data = {
         "is_started": False,
         "ref_code": "sevatest",
@@ -24,15 +22,11 @@ def create_game(cfg=None):
         "factories": [],
         "cities": [],
         "sources": [],
-        "datetime": '2021-03-17T21:38:04.114500',
-        "cfg": cfg
+        "datetime": datetime.datetime.utcnow().isoformat()
     }
-    print("what")
-    print(data)
     game_id = insert_game(data)
-    print(game_id)
     data["_id"] = ObjectId(game_id)
-    return dict(status=True, user=user, game=data)
+    return dict(status=True, user=user, game=data, cfg=cfg)
 
 
 def join_game(ref_code, cfg=None):
@@ -85,7 +79,8 @@ def generate_unique_code():
     """Генерация уникального кода, который еще не использовался или устарел"""
     code = get_random_string(5)
     game = fetch_game_by_code(code)
-    while game is not None or datetime.datetime.fromisoformat(game["datetime"]) + timedelta(hours=6) > dt.utcnow():
+    while game is not None and datetime.datetime.fromisoformat(game["datetime"]) +\
+            timedelta(hours=6) > datetime.datetime.utcnow():
         code = get_random_string(5)
     return code
 
@@ -94,7 +89,8 @@ def validate_game(game_object, config):
     """Валидация игровой сессии"""
     try:
         assert game_object is None
-        assert datetime.datetime.fromisoformat(game_object["datetime"]) + timedelta(hours=2) < dt.utcnow()
+        assert datetime.datetime.fromisoformat(game_object["datetime"]) +\
+               timedelta(hours=2) < datetime.datetime.utcnow()
         assert len(game_object["users"]) >= config["count_users"]
     except KeyError:
         raise AssertionError
