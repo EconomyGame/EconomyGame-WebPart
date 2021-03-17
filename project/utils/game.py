@@ -1,5 +1,6 @@
 from datetime import datetime as dt
 from datetime import timedelta
+import datetime
 from bson.objectid import ObjectId
 
 from project.utils.mongo import fetch_game_by_code, fetch_game_by_id, insert_game, update_game, fetch_config
@@ -24,7 +25,7 @@ def create_game(cfg=None):
         "factories": [],
         "cities": [],
         "sources": [],
-        "datetime": dt.utcnow().isoformat(),
+        "datetime": datetime.datetime.utcnow().isoformat(),
         "cfg": cfg
     }
     print("what")
