@@ -20,3 +20,14 @@ def check_auth(request):
         return game
     else:
         return
+
+
+def validate_coords(game, coords):
+    if game is None:
+        return False
+
+    used = [x["coords"] for x in game["cities"]] + \
+           [x["coords"] for x in game["sources"]] + \
+           [x["coords"] for x in game["factories"]]
+
+    return list(coords) in used

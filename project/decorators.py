@@ -14,7 +14,6 @@ def auth_secure(f):
 
     @wraps(f)
     def wrapped(*args, **kwargs):
-        print("validate stage #1")
         if check_auth(request) is None:
             return dict(message='Authentication Error'), 401
         return f(*args, **kwargs)
