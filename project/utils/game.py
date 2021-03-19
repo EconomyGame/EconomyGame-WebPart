@@ -83,7 +83,7 @@ def is_ready_update(game_id, session_token):
     game["users"][user_ind]["is_ready"] = not game["users"][user_ind]["is_ready"]
     update_game(str(game["_id"]), game)
 
-    return dict(status=True, game=game)
+    return dict(status=True, game=game, user=game["users"][user_ind])
 
 
 def leave_game(game_id, session_token):
@@ -126,6 +126,7 @@ def validate_to_join(game_object, config):
         assert datetime.datetime.fromisoformat(game_object["datetime"]) +\
                timedelta(hours=2) >= datetime.datetime.utcnow()
         assert len(game_object["users"]) < config["count_users"]
+        assert game_object["is_started"] is False
     except KeyError:
         raise AssertionError
 
@@ -134,5 +135,6 @@ def validate_to_start(game_object,):
     """Валидация готовности игры к старту"""
     try:
         assert all(map(lambda x: x["is_ready"], game_object["users"]))
+        assert game_object["is_started"] is False
     except KeyError:
         raise AssertionError
