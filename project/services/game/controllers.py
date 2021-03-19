@@ -3,7 +3,7 @@ from flask import request
 
 from project.app import serializer
 from project.decorators import auth_secure
-from project.utils.game import create_game, join_game, fetch_game, is_ready_update, leave_game
+from project.utils.game import create_game, join_game, fetch_game, is_ready_update, leave_game, start_game
 
 
 api = Namespace('Game Lobby', description='Game Lobby service')
@@ -77,3 +77,13 @@ class LeaveGame(Resource):
         game_id = request.headers.get('Game')
 
         return serializer.jsonify(leave_game(game_id, session_token))
+
+
+@api.route('/start_game')
+@api.doc(security=['session_token', 'game_id'])
+class StartGame(Resource):
+    @auth_secure
+    def get(self):
+        game_id = request.headers.get('Game')
+
+        return serializer.jsonify(start_game(game_id))
