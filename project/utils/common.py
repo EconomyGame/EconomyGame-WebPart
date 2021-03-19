@@ -31,3 +31,11 @@ def validate_coords(game, coords):
            [x["coords"] for x in game["factories"]]
 
     return list(coords) in used
+
+
+def get_user_ind(game, session_token):
+    res_find = [x["session_token"] == session_token for x in game["users"]]
+    try:
+        return res_find.index(True)
+    except ValueError as D:
+        return -1
