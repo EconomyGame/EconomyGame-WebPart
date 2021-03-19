@@ -55,6 +55,12 @@ class TestGame(unittest.TestCase):
         self.assertEqual(_request.json()["status"], True)
         self.assertEqual(_request.json()["game"]["_id"], game["_id"])
 
+    def test_fetch_game(self):
+        game, user = get_session()
+        headers = {"Game": game["_id"], "Authorization": user["session_token"]}
+        _request = requests.get(api_fetch_game, headers=headers)
+        self.assertEqual(_request.json()["status"], True)
+
     def test_create_and_leave(self):
         game, user = get_session()
         headers = {"Game": game["_id"], "Authorization": user["session_token"]}
@@ -71,10 +77,44 @@ class TestGame(unittest.TestCase):
         self.assertEqual(_request.json()["status"], True)
         self.assertEqual(_request.json()["game"], game)
 
+    def test_join_limit(self):
+        game = get_session()[0]
+        params = {"ref_code": game["ref_code"]}
+
+        _request = requests.get(api_join_game, params=params)
+        self.assertEqual(_request.json()["status"], True)
+        self.assertEqual(_request.json()["game"]["_id"], game["_id"])
+
+        _request = requests.get(api_join_game, params=params)
+        self.assertEqual(_request.json()["status"], True)
+        self.assertEqual(_request.json()["game"]["_id"], game["_id"])
+
+        _request = requests.get(api_join_game, params=params)
+        self.assertEqual(_request.json()["status"], True)
+        self.assertEqual(_request.json()["game"]["_id"], game["_id"])
+
+        _request = requests.get(api_join_game, params=params)
+        self.assertEqual(_request.json()["status"], False)
+
     def test_update_ready(self):
         game, user = get_session()
         self.assertEqual(user["is_ready"], False)
 
         headers = {"Game": game["_id"], "Authorization": user["session_token"]}
         _request = requests.get(api_update_ready, headers=headers)
+        self.assertEqual(_request.json()["user"]["is_ready"], True)
 
+        _request = requests.get(api_update_ready, headers=headers)
+        self.assertEqual(_request.json()["user"]["is_ready"], False)
+
+    def test_start_game(self):
+        game, user = get_session()
+        self.assertEqual(user["is_ready"], False)
+
+        headers = {"Game": game["_id"], "Authorization": user["session_token"]}
+        _request = requests.get(api_update_ready, headers=headers)
+        self.assertEqual(_request.json()["user"]["is_ready"], True)
+
+        _request = requests.get(api_start_game, headers=headers)
+        self.assertEqual(_request.json()["status"], True)
+        self.assertEqual(_request.json()["game"]["is_started"], True)
