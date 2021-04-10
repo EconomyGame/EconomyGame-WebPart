@@ -16,5 +16,5 @@ def socketio_disconnect():
 @app.route("/test_socket/<game_id>")
 def test_socket(game_id):
     game = fetch_game_by_id(game_id)
-    socketio.emit('update_game', serializer.jsonify(game), broadcast=True)
+    socketio.emit('my_message',  broadcast=True)
     return "OK"
