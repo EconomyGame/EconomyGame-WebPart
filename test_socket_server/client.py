@@ -9,7 +9,7 @@ async def connect():
     print('connection established')
 
 
-@sio.event
+@sio.on
 async def update_game(data):
     print('message received with ', data)
 
