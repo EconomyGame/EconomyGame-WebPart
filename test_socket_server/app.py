@@ -20,7 +20,7 @@ def socketio_disconnect():
 
 @app.route("/test_socket")
 def test_socket():
-    socketio.emit('my_message',  broadcast=True)
+    socketio.emit('update_game', {}, broadcast=True)
     return "OK"
 
 
