@@ -36,6 +36,7 @@ serializer = Serializer(app)
 from .errorhandlers import *
 from project.services.config.instance import register_config
 from project.services.game.instance import register_game_lobby
+from .sockets import server
 
 
 register_config(api)
