@@ -20,7 +20,7 @@ async def disconnect():
 
 
 async def main():
-    await sio.connect('http://127.0.0.1:443')
+    await sio.connect('http://tp-project2021.herokuapp.com')
     await sio.wait()
 
 if __name__ == '__main__':

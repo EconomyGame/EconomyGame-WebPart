@@ -17,5 +17,6 @@ def socketio_disconnect():
 def test_socket(game_id):
     game = fetch_game_by_id(game_id)
     game["_id"] = str(game["_id"])
+    print(game)
     socketio.emit('update_game', {}, broadcast=True)
     return "OK"
