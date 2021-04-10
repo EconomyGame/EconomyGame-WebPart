@@ -1,4 +1,5 @@
 import os
+import datetime
 
 
 class MainConfig(object):
@@ -17,3 +18,5 @@ class MainConfig(object):
     DEBUG_TB_INTERCEPT_REDIRECTS = False
     STRIPE_SECRET_KEY = 'foo'
     STRIPE_PUBLISHABLE_KEY = 'bar'
+    PERMANENT = True
+    PERMANENT_SESSION_LIFETIME = datetime.timedelta(days=365)

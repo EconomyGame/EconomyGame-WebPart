@@ -1,5 +1,6 @@
 from flask_pymongo import PyMongo
 from flask_cors import CORS
+from flask_socketio import SocketIO
 from flask import Flask, Blueprint
 import os
 
@@ -27,6 +28,7 @@ app.register_blueprint(api_blueprint, url_prefix='/api/v1')
 
 
 mongo = PyMongo(app)
+socketio = SocketIO(app)
 cors = CORS(app, resources={r"/*": {"origins": "*"}})
 serializer = Serializer(app)
 
@@ -41,4 +43,4 @@ register_game_lobby(api)
 
 
 if __name__ == '__main__':
-    app.run()
+    socketio.run(app, host='0.0.0.0', port=443, max_size=1024)
