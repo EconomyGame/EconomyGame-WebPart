@@ -10,6 +10,7 @@ api = Namespace('Game Factories', description='Game Factories service')
 
 
 @api.route('/make_factory')
+@api.doc(security=['session_token', 'game_id'])
 class CreateFactory(Resource):
     factory_model = api.model(
         'Create Factory input',
