@@ -111,6 +111,18 @@ def fetch_game(game_id, session_token):
     return dict(status=True, game=game, user=game["users"][user_ind])
 
 
+def update_balance(game_id, session_token, balance):
+    """INC of user balance"""
+    game = fetch_game_by_id(game_id)
+    user_ind = get_user_ind(game, session_token)
+
+    game["users"][user_ind]["balance"] += balance
+    update_game(str(game_id), game)
+    broadcast_game(game)
+
+    return dict(status=True, game=game)
+
+
 def generate_unique_code():
     """Генерация уникального кода, который еще не использовался или устарел"""
     code = get_random_string(5)

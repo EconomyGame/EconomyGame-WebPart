@@ -1,7 +1,12 @@
 import random
+import os
 import string
 
 from project.utils.mongo import fetch_game_by_id
+from project import config
+
+
+config_object = getattr(config, os.environ['APP_SETTINGS'])
 
 
 def get_random_string(size=10):
@@ -20,6 +25,12 @@ def check_auth(request):
         return game
     else:
         return
+
+
+def check_admin_auth(request):
+    """Проверка ADMIN авторизации по request"""
+    admin_token = request.headers.get('ADMIN')
+    return admin_token == config_object.ADMIN_SECRET_KEY
 
 
 def validate_coords(game, coords):
