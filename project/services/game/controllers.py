@@ -1,4 +1,4 @@
-from flask_restplus import Namespace, Resource
+from flask_restplus import Namespace, Resource, fields
 from flask import request
 
 from project.app import serializer
@@ -11,6 +11,14 @@ api = Namespace('Game Lobby', description='Game Lobby service')
 
 @api.route('/create_game')
 class CreateGame(Resource):
+    game_model = api.model(
+        'Create Game input',
+        {
+            'username': fields.String('Player username for this game')
+        },
+    )
+
+    @api.expect(game_model)
     def post(self):
         try:
             _request = create_game()
