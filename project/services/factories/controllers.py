@@ -14,8 +14,8 @@ class CreateFactory(Resource):
     factory_model = api.model(
         'Create Factory input',
         {
-            'resource_id': fields.List('ID of resource, int in range [1, 4]'),
-            'coords': fields.List('Coords format [x, y]')
+            'resource_id': fields.Integer('ID of resource, int in range [1, 4]'),
+            'coords': fields.String('List, format [x, y]')
         },
     )
 
