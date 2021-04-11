@@ -70,7 +70,7 @@ class UpgradeFactory(Resource):
 @api.doc(security=['session_token', 'game_id'])
 class SelectCityFactory(Resource):
     city_model = api.model(
-        'Upgrade Factory input',
+        'Select City input',
         {
             'factory_id': fields.String('ID of our factory'),
             'city_id': fields.String('ID of our city')
@@ -99,7 +99,7 @@ class SelectCityFactory(Resource):
 @api.doc(security=['session_token', 'game_id'])
 class SelectSourceFactory(Resource):
     source_model = api.model(
-        'Upgrade Factory input',
+        'Select Source input',
         {
             'factory_id': fields.String('ID of our factory'),
             'source_id': fields.String('ID of our source')
