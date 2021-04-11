@@ -17,11 +17,9 @@ def make_factory(game_id, session_token, data, cfg=None):
 
     game = fetch_game_by_id(game_id)
     if not validate_coords(game, data["coords"]):
-        print("coords")
         return dict(status=False, message="Coords error")
 
     if not validate_balance(user, cfg["factories"]["price_factory"]):
-        print("balance")
         return dict(status=False, message="Price error")
 
     factory = {
