@@ -13,7 +13,7 @@ def make_factory(data):
 
     data = {
         "_id": get_random_string(40),
-        "session_token": data["session_token"],
+        "username": data["username"],
         "resource_id": data["resource_id"],
         "coords": data["coords"],
         "city_name": None,
