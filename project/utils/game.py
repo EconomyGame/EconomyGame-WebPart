@@ -47,9 +47,10 @@ def join_game(ref_code, username, cfg=None):
         user = new_user(username=username)
         game["users"].append(user.copy())
         update_game(str(game["_id"]), game)
-        broadcast_game(prepare_gameobject(game))
+        game = prepare_gameobject(game)
+        broadcast_game(game)
 
-        response = dict(status=True, game=delete_sessions_from_game(game), user=user, cfg=cfg)
+        response = dict(status=True, game=game, user=user, cfg=cfg)
     except AssertionError:
         response = dict(status=False, message='Validation Error')
     return response
@@ -68,9 +69,10 @@ def start_game(game_id, cfg=None):
         game["sources"] = generate_sources(cfg=cfg)
         game["is_started"] = True
         update_game(str(game["_id"]), game)
-        broadcast_game(prepare_gameobject(game))
+        game = prepare_gameobject(game)
+        broadcast_game(game)
 
-        response = dict(status=True, game=delete_sessions_from_game(game))
+        response = dict(status=True, game=game)
     except AssertionError:
         response = dict(status=False, message='Validation Error')
 
@@ -85,9 +87,11 @@ def is_ready_update(game_id, session_token):
     user = game["users"][user_ind].copy()
     game["users"][user_ind]["is_ready"] = not game["users"][user_ind]["is_ready"]
     update_game(str(game["_id"]), game)
-    broadcast_game(prepare_gameobject(game))
+    game = prepare_gameobject(game)
+    game = prepare_gameobject(game)
+    broadcast_game(game)
 
-    return dict(status=True, game=delete_sessions_from_game(game), user=user)
+    return dict(status=True, game=game, user=user)
 
 
 def leave_game(game_id, session_token):
@@ -97,9 +101,11 @@ def leave_game(game_id, session_token):
     user_ind = get_user_ind(game, session_token)
     game["users"].pop(user_ind)
     update_game(str(game_id), game)
-    broadcast_game(prepare_gameobject(game))
+    game = prepare_gameobject(game)
+    game = prepare_gameobject(game)
+    broadcast_game(game)
 
-    return dict(status=True, game=delete_sessions_from_game(game))
+    return dict(status=True, game=game)
 
 
 def fetch_game(game_id, session_token):
@@ -110,7 +116,7 @@ def fetch_game(game_id, session_token):
     user_ind = get_user_ind(game, session_token)
     user = game["users"][user_ind].copy()
 
-    return dict(status=True, game=delete_sessions_from_game(game), user=user)
+    return dict(status=True, game=game, user=user)
 
 
 def generate_unique_code():
