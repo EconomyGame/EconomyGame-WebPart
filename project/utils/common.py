@@ -24,15 +24,12 @@ def check_auth(request):
 
 def validate_coords(game, coords):
     if game is None:
-        print("what")
         return False
 
     used = [x["coords"] for x in game["cities"]] + \
            [x["coords"] for x in game["sources"]] + \
            [x["coords"] for x in game["factories"]]
-    print(used)
-    print(list(coords))
-    return list(coords) in used
+    return list(coords) not in used
 
 
 def get_user_ind(game, session_token):
