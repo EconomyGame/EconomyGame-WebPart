@@ -15,7 +15,7 @@ def make_factory(game_id, session_token, data, cfg=None):
     user_ind = get_user_ind(game, session_token)
     user = game["users"][user_ind]
 
-    game = fetch_game_by_id(data["game_id"])
+    game = fetch_game_by_id(game_id)
     if not validate_coords(game, data["coords"]):
         return dict(status=False, message="Coords error")
 
