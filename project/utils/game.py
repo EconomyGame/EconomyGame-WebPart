@@ -41,7 +41,7 @@ def join_game(ref_code, username, cfg=None):
         cfg = fetch_config()
 
     try:
-        validate_to_join(game_object=game, config=cfg)
+        validate_to_join(game_object=game, username=username, config=cfg)
 
         user = new_user(username=username)
         game["users"].append(user)
@@ -119,7 +119,7 @@ def generate_unique_code():
     return code
 
 
-def validate_to_join(game_object, config):
+def validate_to_join(game_object, username, config):
     """Валидация игровой сессии"""
     try:
         assert game_object is not None
@@ -127,6 +127,7 @@ def validate_to_join(game_object, config):
                timedelta(hours=2) >= datetime.datetime.utcnow()
         assert len(game_object["users"]) < config["count_users"]
         assert game_object["is_started"] is False
+        assert username not in list(map(lambda x: x["username"], game_object["users"]))
     except KeyError:
         raise AssertionError
 
