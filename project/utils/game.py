@@ -19,7 +19,7 @@ def create_game(username, cfg=None):
     data = {
         "is_started": False,
         "ref_code": generate_unique_code(),
-        "users": [user],
+        "users": [user.copy()],
         "factories": [],
         "cities": [],
         "sources": [],
