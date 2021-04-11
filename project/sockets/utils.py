@@ -10,5 +10,4 @@ def broadcast_game(game_object):
 
 def prepare_gameobject(game_object):
     game_object["_id"] = str(game_object["_id"])
-    for i in
     return game_object
