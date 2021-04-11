@@ -1,5 +1,4 @@
 from project.app import socketio, app
-from project.app import serializer
 from project.utils.mongo import fetch_game_by_id
 
 
@@ -11,11 +10,3 @@ def socketio_connect():
 @socketio.on('disconnect')
 def socketio_disconnect():
     print(f'User has been disconnected')
-
-
-@app.route("/test_socket/<game_id>")
-def test_socket(game_id):
-    game = fetch_game_by_id(game_id)
-    game["_id"] = str(game["_id"])
-    socketio.emit('update_game', game, broadcast=True)
-    return "OK"

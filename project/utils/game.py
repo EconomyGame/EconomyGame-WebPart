@@ -7,6 +7,7 @@ from project.utils.user import new_user
 from project.utils.common import get_random_string, get_user_ind
 from project.utils.city import generate_cities
 from project.utils.source import generate_sources
+from project.sockets import broadcast_game
 
 
 def create_game(username, cfg=None):
@@ -46,11 +47,11 @@ def join_game(ref_code, username, cfg=None):
         user = new_user(username=username)
         game["users"].append(user)
         update_game(str(game["_id"]), game)
+        broadcast_game(game)
 
         response = dict(status=True, game=game, user=user, cfg=cfg)
     except AssertionError:
         response = dict(status=False, message='Validation Error')
-
     return response
 
 
@@ -67,6 +68,7 @@ def start_game(game_id, cfg=None):
         game["sources"] = generate_sources(cfg=cfg)
         game["is_started"] = True
         update_game(str(game["_id"]), game)
+        broadcast_game(game)
 
         response = dict(status=True, game=game)
     except AssertionError:
@@ -82,6 +84,7 @@ def is_ready_update(game_id, session_token):
     user_ind = get_user_ind(game, session_token)
     game["users"][user_ind]["is_ready"] = not game["users"][user_ind]["is_ready"]
     update_game(str(game["_id"]), game)
+    broadcast_game(game)
 
     return dict(status=True, game=game, user=game["users"][user_ind])
 
@@ -93,6 +96,7 @@ def leave_game(game_id, session_token):
     user_ind = get_user_ind(game, session_token)
     game["users"].pop(user_ind)
     update_game(str(game_id), game)
+    broadcast_game(game)
 
     return dict(status=True, game=game)
 
