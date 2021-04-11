@@ -41,7 +41,7 @@ class CreateFactory(Resource):
 @api.route('/upgrade_factory')
 @api.doc(security=['session_token', 'game_id'])
 class UpgradeFactory(Resource):
-    factory_model = api.model(
+    upgrade_model = api.model(
         'Upgrade Factory input',
         {
             'factory_id': fields.String('ID of our factory'),
@@ -49,7 +49,7 @@ class UpgradeFactory(Resource):
     )
 
     @auth_secure
-    @api.expect(factory_model)
+    @api.expect(upgrade_model)
     def post(self):
         session_token = request.headers.get('Authorization')
         game_id = request.headers.get('Game')
@@ -69,7 +69,7 @@ class UpgradeFactory(Resource):
 @api.route('/select_city')
 @api.doc(security=['session_token', 'game_id'])
 class SelectCityFactory(Resource):
-    factory_model = api.model(
+    city_model = api.model(
         'Upgrade Factory input',
         {
             'factory_id': fields.String('ID of our factory'),
@@ -78,7 +78,7 @@ class SelectCityFactory(Resource):
     )
 
     @auth_secure
-    @api.expect(factory_model)
+    @api.expect(city_model)
     def post(self):
         session_token = request.headers.get('Authorization')
         game_id = request.headers.get('Game')
@@ -98,7 +98,7 @@ class SelectCityFactory(Resource):
 @api.route('/select_source')
 @api.doc(security=['session_token', 'game_id'])
 class SelectSourceFactory(Resource):
-    factory_model = api.model(
+    source_model = api.model(
         'Upgrade Factory input',
         {
             'factory_id': fields.String('ID of our factory'),
@@ -107,7 +107,7 @@ class SelectSourceFactory(Resource):
     )
 
     @auth_secure
-    @api.expect(factory_model)
+    @api.expect(source_model)
     def post(self):
         session_token = request.headers.get('Authorization')
         game_id = request.headers.get('Game')
