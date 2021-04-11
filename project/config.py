@@ -9,6 +9,7 @@ class MainConfig(object):
     ADMIN_SECRET_KEY = os.environ['ADMIN_SECRET_KEY']
     SECRET_KEY = os.environ['SECRET_KEY']
     MONGO_URI = os.environ['MONGO_URI']
+    REDISCLOUD_URL = os.environ["REDISCLOUD_URL"]
     SERVER_NAME = os.environ['SERVER_NAME']
 
     DEBUG = False

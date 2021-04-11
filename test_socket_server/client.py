@@ -1,19 +1,23 @@
+import asyncio
 import socketio
 
-sio = socketio.Client()
+sio = socketio.AsyncClient()
 
 @sio.event
-def connect():
+async def connect():
     print('connection established')
 
 @sio.event
-def my_message(data):
+async def update_game(data):
     print('message received with ', data)
-    sio.emit('my response', {'response': 'my response'})
 
 @sio.event
-def disconnect():
+async def disconnect():
     print('disconnected from server')
 
-sio.connect('http://tp-project2021.herokuapp.com/')
-sio.wait()
+async def main():
+    await sio.connect('http://tp-project2021.herokuapp.com')
+    await sio.wait()
+
+if __name__ == '__main__':
+    asyncio.run(main())
