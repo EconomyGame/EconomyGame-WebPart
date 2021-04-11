@@ -19,6 +19,6 @@ def generate_sources(cfg=None):
         "coords": x["coords"],
         "remain": remain,
         "delta": 0,
-        "datetime": dt.utcnow()
+        "datetime": dt.utcnow().isoformat()
     } for x in cfg["map"]["sources"]]
     return sources

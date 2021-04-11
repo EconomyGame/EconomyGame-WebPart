@@ -18,6 +18,6 @@ def generate_cities(cfg=None):
         "resource_levels": generate_resource_levels(cfg),
         "resource_stage": generate_resource_stages(cfg),
         "resource_delta": cfg["cities"]["requied_levels"]["level_1"],
-        "datetime": dt.utcnow()
+        "datetime": dt.utcnow().isoformat()
     } for name, coords in prepared_cities]
     return cities
