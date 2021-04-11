@@ -44,7 +44,7 @@ class UpgradeFactory(Resource):
     upgrade_model = api.model(
         'Upgrade Factory input',
         {
-            'factory_id': fields.String('ID of our factory'),
+            'factory_id': fields.String('ID of our factory')
         },
     )
 
@@ -73,7 +73,7 @@ class SelectCityFactory(Resource):
         'Upgrade Factory input',
         {
             'factory_id': fields.String('ID of our factory'),
-            'city_id': fields.String('ID of our city'),
+            'city_id': fields.String('ID of our city')
         },
     )
 
@@ -102,7 +102,7 @@ class SelectSourceFactory(Resource):
         'Upgrade Factory input',
         {
             'factory_id': fields.String('ID of our factory'),
-            'source_id': fields.String('ID of our source'),
+            'source_id': fields.String('ID of our source')
         },
     )
 
