@@ -88,7 +88,6 @@ def is_ready_update(game_id, session_token):
     game["users"][user_ind]["is_ready"] = not game["users"][user_ind]["is_ready"]
     update_game(str(game["_id"]), game)
     game = prepare_gameobject(game)
-    game = prepare_gameobject(game)
     broadcast_game(game)
 
     return dict(status=True, game=game, user=user)
@@ -101,7 +100,6 @@ def leave_game(game_id, session_token):
     user_ind = get_user_ind(game, session_token)
     game["users"].pop(user_ind)
     update_game(str(game_id), game)
-    game = prepare_gameobject(game)
     game = prepare_gameobject(game)
     broadcast_game(game)
 
