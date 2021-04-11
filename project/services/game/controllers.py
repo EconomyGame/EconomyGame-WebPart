@@ -31,14 +31,21 @@ class CreateGame(Resource):
             'in': 'query',
             'type': 'string',
             'required': True,
+        },
+        'username': {
+            'description': 'Player name',
+            'in': 'query',
+            'type': 'string',
+            'required': True,
         }
     }
 )
 class JoinGame(Resource):
     def get(self):
         ref_code = request.args.get('ref_code')
+        username = request.args.get('username')
         try:
-            _request = join_game(ref_code)
+            _request = join_game(ref_code, username)
 
             return serializer.jsonify(_request)
         except Exception as D:

@@ -29,7 +29,7 @@ def create_game(cfg=None):
     return dict(status=True, user=user, game=data, cfg=cfg)
 
 
-def join_game(ref_code, cfg=None):
+def join_game(ref_code, username, cfg=None):
     """
     Подключение к сущестующей сессии
 
@@ -43,7 +43,7 @@ def join_game(ref_code, cfg=None):
     try:
         validate_to_join(game_object=game, config=cfg)
 
-        user = new_user()
+        user = new_user(username=username)
         game["users"].append(user)
         update_game(str(game["_id"]), game)
 

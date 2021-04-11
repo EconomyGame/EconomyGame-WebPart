@@ -1,6 +1,7 @@
 from datetime import datetime as dt
 
 from project.utils.mongo import fetch_config
+from project.utils.common import get_random_string
 
 
 def generate_sources(cfg=None):
@@ -13,6 +14,7 @@ def generate_sources(cfg=None):
               cfg["cities"]["upgrades_levels"]["level_3"] +
               cfg["cities"]["upgrades_levels"]["level_4"]) * cfg["count_cities"] // cfg["count_users"] * 2
     sources = [{
+        "_id": get_random_string(40),
         "resource_id": x["resource_id"],
         "coords": x["coords"],
         "remain": remain,

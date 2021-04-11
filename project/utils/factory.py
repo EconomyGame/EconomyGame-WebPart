@@ -1,7 +1,7 @@
 from datetime import datetime as dt
 
 from project.utils.mongo import fetch_game_by_id
-from project.utils.common import validate_coords
+from project.utils.common import validate_coords, get_random_string
 
 
 def make_factory(data):
@@ -12,6 +12,7 @@ def make_factory(data):
         return dict(status=False, message="Coords error")
 
     data = {
+        "_id": get_random_string(40),
         "session_token": data["session_token"],
         "resource_id": data["resource_id"],
         "coords": data["coords"],
