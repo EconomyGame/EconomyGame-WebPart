@@ -1,3 +1,4 @@
+import eventlet
 from flask_pymongo import PyMongo
 from flask_cors import CORS
 from flask_socketio import SocketIO
@@ -10,6 +11,7 @@ from project.utils.const import swagger_authorizations
 from project.utils.serialize import Serializer
 
 
+eventlet.monkey_patch()
 app = Flask(__name__, subdomain_matching=True)
 app.config.from_object(getattr(config, os.environ['APP_SETTINGS']))
 app.secret_key = app.config['FLASK_SECRET_KEY']
