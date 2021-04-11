@@ -33,13 +33,10 @@ def make_factory(game_id, session_token, data, cfg=None):
         "coef": cfg["factories"]["start_coef"],
         "datetime": dt.utcnow().isoformat()
     }
-    print(1)
-    game[user_ind]["balance"] -= cfg["factories"]["price_factory"]
-    print(2)
+
+    game["users"][user_ind]["balance"] -= cfg["factories"]["price_factory"]
     game["factories"].append(factory)
-    print(3)
     update_game(str(game["_id"]), game)
-    print(4)
     broadcast_game(game)
 
     return dict(status=True, game=game, factory=factory)
