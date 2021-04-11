@@ -30,7 +30,7 @@ def make_factory(game_id, session_token, data, cfg=None):
         "city_id": None,
         "source_id": None,
         "level": 1,
-        "coef": cfg["cities"]["start_coef"],
+        "coef": cfg["factories"]["start_coef"],
         "datetime": dt.utcnow().isoformat()
     }
 
