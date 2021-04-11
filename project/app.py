@@ -30,7 +30,7 @@ app.register_blueprint(api_blueprint, url_prefix='/api/v1')
 
 
 mongo = PyMongo(app)
-socketio = SocketIO(app)
+socketio = SocketIO(app, message_queue=config.MainConfig.REDISCLOUD_URL)
 cors = CORS(app, resources={r"/*": {"origins": "*"}})
 serializer = Serializer(app)
 
@@ -46,6 +46,4 @@ register_game_lobby(api)
 
 
 if __name__ == '__main__':
-    print(123)
-    print(config.MainConfig.REDISCLOUD_URL)
-    socketio.run(app, host='0.0.0.0', port=443, max_size=1024, message_queue=config.MainConfig.REDISCLOUD_URL)
+    socketio.run(app, host='0.0.0.0', port=443, max_size=1024)
