@@ -20,8 +20,9 @@ class CreateGame(Resource):
 
     @api.expect(game_model)
     def post(self):
+        username = request.json.get("username")
         try:
-            _request = create_game()
+            _request = create_game(username=username)
             if not _request["status"]:
                 return serializer.jsonify({"status": False, "message": "Game creation error"})
 

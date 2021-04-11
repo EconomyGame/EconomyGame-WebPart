@@ -9,9 +9,9 @@ from project.utils.city import generate_cities
 from project.utils.source import generate_sources
 
 
-def create_game(cfg=None):
+def create_game(username, cfg=None):
     """Создание игры, выдача token для leader, etc"""
-    user = new_user()
+    user = new_user(username)
     if cfg is None:
         cfg = fetch_config()
     del cfg["_id"]
