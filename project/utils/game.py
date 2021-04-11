@@ -45,7 +45,7 @@ def join_game(ref_code, username, cfg=None):
         validate_to_join(game_object=game, username=username, config=cfg)
 
         user = new_user(username=username)
-        game["users"].append(user)
+        game["users"].append(user.copy())
         update_game(str(game["_id"]), game)
         broadcast_game(prepare_gameobject(game))
 
