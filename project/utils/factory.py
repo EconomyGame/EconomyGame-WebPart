@@ -1,7 +1,7 @@
 from datetime import datetime as dt
 
 from project.utils.mongo import fetch_game_by_id, fetch_config, update_game
-from project.utils.common import validate_coords, get_random_string, get_user_ind, get_factory_ind
+from project.utils.common import validate_coords, get_random_string, get_user_ind, get_factory_ind, get_city_ind, get_source_ind
 from project.sockets import broadcast_game
 
 
@@ -75,6 +75,61 @@ def upgrade_factory(game_id, session_token, data, cfg=None):
     return dict(status=True, game=game, factory=factory)
 
 
+def select_source(game_id, session_token, data):
+    """ВЫбор источника добычи"""
+
+    game = fetch_game_by_id(game_id)
+
+    user_ind = get_user_ind(game, session_token)
+    user = game["users"][user_ind]
+
+    factory_id = get_factory_ind(game, data["factory_id"])
+    factory = game["factories"][factory_id]
+
+    if not validate_owner(user, factory):
+        return dict(status=False, message="Access error")
+
+    source_id = get_factory_ind(game, data["source_id"])
+    source = game["sources"][source_id]
+
+    if not validate_resource(factory, source):
+        return dict(status=False, message="Source error")
+
+    factory["source_id"] = source["_id"]
+
+    game["factories"][factory_id] = factory
+    update_game(str(game["_id"]), game)
+    broadcast_game(game)
+
+    return dict(status=True, game=game, factory=factory)
+
+
+def select_city(game_id, session_token, data):
+    """ВЫбор города для поставки"""
+
+    game = fetch_game_by_id(game_id)
+
+    user_ind = get_user_ind(game, session_token)
+    user = game["users"][user_ind]
+
+    factory_id = get_factory_ind(game, data["factory_id"])
+    factory = game["factories"][factory_id]
+
+    if not validate_owner(user, factory):
+        return dict(status=False, message="Access error")
+
+    city_id = get_city_ind(game, data["city_id"])
+    city = game["cities"][city_id]
+
+    factory["city_id"] = city["_id"]
+
+    game["factories"][factory_id] = factory
+    update_game(str(game["_id"]), game)
+    broadcast_game(game)
+
+    return dict(status=True, game=game, factory=factory)
+
+
 def validate_balance(user, price):
     return user["balance"] >= price
 
@@ -83,4 +138,5 @@ def validate_owner(user, factory):
     return user["username"] == factory["username"]
 
 
-
+def validate_resource(factory, source):
+    return factory["resource_id"] == source["resource_id"]

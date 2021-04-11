@@ -16,11 +16,11 @@ class FetchConfig(Resource):
         return serializer.jsonify(fetch_config())
 
 
-@api.route('/update_balance')
+@api.route('/inc_balance')
 @api.doc(security=['session_token', 'game_id', "admin_token"])
-class UpdateBalance(Resource):
+class IncBalance(Resource):
     balance_model = api.model(
-        'Update Balance input',
+        'Inc Balance input',
         {
             'balance': fields.Integer('INC of balance')
         },

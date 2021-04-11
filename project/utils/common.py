@@ -2,7 +2,7 @@ import random
 import os
 import string
 
-from project.utils.mongo import fetch_game_by_id
+from project.utils.mongo import fetch_game_by_id, fetch_config
 from project import config
 
 
@@ -43,6 +43,12 @@ def validate_coords(game, coords):
     return list(coords) not in used
 
 
+def get_transfer_fee(coords_1, coords_2, cfg=None):
+    if cfg is None:
+        cfg = fetch_config()
+    return (abs(coords_1[0] - coords_2[0]) + abs(coords_1[1] - coords_2[1])) * cfg["transfer_price"]
+
+
 def get_user_ind(game, session_token):
     res_find = [x["session_token"] == session_token for x in game["users"]]
     try:
@@ -58,3 +64,18 @@ def get_factory_ind(game, factory_id):
     except ValueError as D:
         return -1
 
+
+def get_city_ind(game, city_id):
+    res_find = [x["_id"] == city_id for x in game["cities"]]
+    try:
+        return res_find.index(True)
+    except ValueError as D:
+        return -1
+
+
+def get_source_ind(game, source_id):
+    res_find = [x["_id"] == source_id for x in game["sources"]]
+    try:
+        return res_find.index(True)
+    except ValueError as D:
+        return -1
