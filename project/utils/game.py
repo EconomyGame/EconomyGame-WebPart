@@ -113,7 +113,6 @@ def fetch_game(game_id, session_token):
 
     user_ind = get_user_ind(game, session_token)
     user = game["users"][user_ind].copy()
-    game = prepare_gameobject(game)
 
     return dict(status=True, game=game, user=user)
 
