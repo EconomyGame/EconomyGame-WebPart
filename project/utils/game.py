@@ -82,7 +82,7 @@ def is_ready_update(game_id, session_token):
     game = fetch_game_by_id(game_id)
 
     user_ind = get_user_ind(game, session_token)
-    user = game["users"][user_ind]
+    user = game["users"][user_ind].copy()
     game["users"][user_ind]["is_ready"] = not game["users"][user_ind]["is_ready"]
     update_game(str(game["_id"]), game)
     broadcast_game(prepare_gameobject(game))
@@ -108,7 +108,7 @@ def fetch_game(game_id, session_token):
     game = fetch_game_by_id(game_id)
 
     user_ind = get_user_ind(game, session_token)
-    user = game["users"][user_ind]
+    user = game["users"][user_ind].copy()
 
     return dict(status=True, game=delete_sessions_from_game(game), user=user)
 
