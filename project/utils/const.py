@@ -15,4 +15,9 @@ swagger_authorizations = {
         'in': 'header',
         'name': 'Game'
     },
+    'admin_token': {
+        'type': 'apiKey',
+        'in': 'header',
+        'name': 'ADMIN'
+    },
 }

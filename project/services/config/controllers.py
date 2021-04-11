@@ -17,6 +17,7 @@ class FetchConfig(Resource):
 
 
 @api.route('/update_balance')
+@api.doc(security=['session_token', 'game_id', "admin_token"])
 class UpdateBalance(Resource):
     balance_model = api.model(
         'Update Balance input',
