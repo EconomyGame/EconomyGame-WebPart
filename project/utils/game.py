@@ -47,7 +47,7 @@ def join_game(ref_code, username, cfg=None):
         user = new_user(username=username)
         game["users"].append(user)
         update_game(str(game["_id"]), game)
-        broadcast_game(prepare_gameobject(game))
+        broadcast_game(game)
 
         response = dict(status=True, game=delete_sessions_from_game(game), user=user, cfg=cfg)
     except AssertionError:
@@ -68,7 +68,7 @@ def start_game(game_id, cfg=None):
         game["sources"] = generate_sources(cfg=cfg)
         game["is_started"] = True
         update_game(str(game["_id"]), game)
-        broadcast_game(prepare_gameobject(game))
+        broadcast_game(game)
 
         response = dict(status=True, game=delete_sessions_from_game(game))
     except AssertionError:
@@ -85,7 +85,7 @@ def is_ready_update(game_id, session_token):
     user = game["users"][user_ind]
     game["users"][user_ind]["is_ready"] = not game["users"][user_ind]["is_ready"]
     update_game(str(game["_id"]), game)
-    broadcast_game(prepare_gameobject(game))
+    broadcast_game(game)
 
     return dict(status=True, game=delete_sessions_from_game(game), user=user)
 
@@ -97,7 +97,7 @@ def leave_game(game_id, session_token):
     user_ind = get_user_ind(game, session_token)
     game["users"].pop(user_ind)
     update_game(str(game_id), game)
-    broadcast_game(prepare_gameobject(game))
+    broadcast_game(game)
 
     return dict(status=True, game=delete_sessions_from_game(game))
 
@@ -148,10 +148,4 @@ def validate_to_start(game_object):
 def delete_sessions_from_game(game_object):
     for i in game_object["users"]:
         del i["session_token"]
-    return game_object
-
-
-def prepare_gameobject(game_object):
-    game_object["_id"] = str(game_object["_id"])
-    game_object = delete_sessions_from_game(game_object)
     return game_object
