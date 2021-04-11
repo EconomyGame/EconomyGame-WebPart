@@ -3,7 +3,7 @@ from flask import request
 
 from project.app import serializer
 from project.decorators import auth_secure
-from project.utils.factory import make_factory
+from project.utils.factory import make_factory, upgrade_factory
 
 
 api = Namespace('Game Factories', description='Game Factories service')
@@ -31,6 +31,34 @@ class CreateFactory(Resource):
             _request = make_factory(game_id, session_token, data)
             if not _request["status"]:
                 return serializer.jsonify({"status": False, "message": "Factory creation error"})
+
+            return serializer.jsonify(_request)
+        except Exception as D:
+            print(D)
+            return serializer.jsonify({"status": False, "message": "Unknown error"})
+
+
+@api.route('/upgrade_factory')
+@api.doc(security=['session_token', 'game_id'])
+class UpgradeFactory(Resource):
+    factory_model = api.model(
+        'Upgrade Factory input',
+        {
+            'factory_id': fields.String('ID of our factory'),
+        },
+    )
+
+    @auth_secure
+    @api.expect(factory_model)
+    def post(self):
+        session_token = request.headers.get('Authorization')
+        game_id = request.headers.get('Game')
+        data = request.json
+
+        try:
+            _request = upgrade_factory(game_id, session_token, data)
+            if not _request["status"]:
+                return serializer.jsonify({"status": False, "message": "Factory upgrade error"})
 
             return serializer.jsonify(_request)
         except Exception as D:

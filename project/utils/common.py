@@ -38,3 +38,12 @@ def get_user_ind(game, session_token):
         return res_find.index(True)
     except ValueError as D:
         return -1
+
+
+def get_factory_ind(game, factory_id):
+    res_find = [x["_id"] == factory_id for x in game["factories"]]
+    try:
+        return res_find.index(True)
+    except ValueError as D:
+        return -1
+
