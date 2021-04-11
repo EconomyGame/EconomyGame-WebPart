@@ -27,7 +27,7 @@ def create_game(username, cfg=None):
     }
     game_id = insert_game(data)
     data["_id"] = ObjectId(game_id)
-    return dict(status=True, user=user, game=delete_sessions_from_game(data), cfg=cfg)
+    return dict(status=True, user=user, game=data, cfg=cfg)
 
 
 def join_game(ref_code, username, cfg=None):
@@ -49,7 +49,7 @@ def join_game(ref_code, username, cfg=None):
         update_game(str(game["_id"]), game)
         broadcast_game(game)
 
-        response = dict(status=True, game=delete_sessions_from_game(game), user=user, cfg=cfg)
+        response = dict(status=True, game=game, user=user, cfg=cfg)
     except AssertionError:
         response = dict(status=False, message='Validation Error')
     return response
@@ -70,7 +70,7 @@ def start_game(game_id, cfg=None):
         update_game(str(game["_id"]), game)
         broadcast_game(game)
 
-        response = dict(status=True, game=delete_sessions_from_game(game))
+        response = dict(status=True, game=game)
     except AssertionError:
         response = dict(status=False, message='Validation Error')
 
@@ -82,12 +82,11 @@ def is_ready_update(game_id, session_token):
     game = fetch_game_by_id(game_id)
 
     user_ind = get_user_ind(game, session_token)
-    user = game["users"][user_ind]
     game["users"][user_ind]["is_ready"] = not game["users"][user_ind]["is_ready"]
     update_game(str(game["_id"]), game)
     broadcast_game(game)
 
-    return dict(status=True, game=delete_sessions_from_game(game), user=user)
+    return dict(status=True, game=game, user=game["users"][user_ind])
 
 
 def leave_game(game_id, session_token):
@@ -99,7 +98,7 @@ def leave_game(game_id, session_token):
     update_game(str(game_id), game)
     broadcast_game(game)
 
-    return dict(status=True, game=delete_sessions_from_game(game))
+    return dict(status=True, game=game)
 
 
 def fetch_game(game_id, session_token):
@@ -108,9 +107,8 @@ def fetch_game(game_id, session_token):
     game = fetch_game_by_id(game_id)
 
     user_ind = get_user_ind(game, session_token)
-    user = game["users"][user_ind]
 
-    return dict(status=True, game=delete_sessions_from_game(game), user=user)
+    return dict(status=True, game=game, user=game["users"][user_ind])
 
 
 def generate_unique_code():
@@ -136,16 +134,10 @@ def validate_to_join(game_object, username, config):
         raise AssertionError
 
 
-def validate_to_start(game_object):
+def validate_to_start(game_object,):
     """Валидация готовности игры к старту"""
     try:
         assert all(map(lambda x: x["is_ready"], game_object["users"]))
         assert game_object["is_started"] is False
     except KeyError:
         raise AssertionError
-
-
-def delete_sessions_from_game(game_object):
-    for i in game_object["users"]:
-        del i["session_token"]
-    return game_object
