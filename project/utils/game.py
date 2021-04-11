@@ -97,16 +97,14 @@ def leave_game(game_id, session_token):
     return dict(status=True, game=game)
 
 
-def fetch_game(game_id, session_token, cfg=None):
+def fetch_game(game_id, session_token):
     """Поиск игры"""
 
     game = fetch_game_by_id(game_id)
-    if cfg is None:
-        cfg = fetch_config()
 
     user_ind = get_user_ind(game, session_token)
 
-    return dict(status=True, game=game, user=game["users"][user_ind], cfg=cfg)
+    return dict(status=True, game=game, user=game["users"][user_ind])
 
 
 def generate_unique_code():
