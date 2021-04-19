@@ -5,6 +5,36 @@
 
 [![View in Swagger](http://jessemillar.github.io/view-in-swagger-button/button.svg)](http://tp-project2021.herokuapp.com/api/v1/docs/)
 
+## Config: headers
+| Имя | Тип | Описание |
+| --- |-----|----------|
+| cities | dict | Конфигурация городов |
+| count_cities | int | Количество городов на карте |
+| count_users | int | Количество игроков на карте |
+| factories | dict | Конфигурация фабрик |
+| map | dict | Положение объектов на карте |
+| resource_ids | dict | Описание ресурсов |
+| size_map | list | Размер карты |
+| transfer_price | int | Стоимость трансфера за 1 клетку |
+
+## Config: cities
+| Имя | Тип | Описание |
+| --- |-----|----------|
+| cities_names | list | Дефолтные названия городов |
+| city_payout | int | Выплата города за ед. доставленного ресурса |
+| rates_dif | int | Коэфицент разницы для товаров разного качества |
+| requied_levels | dict | Минимальная необходимая поставка городу |
+| upgrades_levels | dict | Кол-во необходимых ресурсов для повышения level |
+
+## Config: factories
+| Имя | Тип | Описание |
+| --- |-----|----------|
+| coef_levelup | list, ints | Кол-во секунд, необходимых чтобы довести коэфицент до 1. Формула: (1-start_coef) / coef_levelup[level] - в сек. |
+| factory_levels | dict, ints | Стоимость апгрейда фабрики. Формула: factory_levels[level] / coef |
+| max_products | dict, ints | Кол-во продукции, которую требует и поставляет завод. |
+| price_factory | int | Стоимость фабрики |
+| start_coef | float | Дефолтное значение coef |
+
 ## Структура объекта Game
 | Имя | Тип | Описание |
 | --- |-----|----------|
@@ -37,7 +67,8 @@
 | city_id | str | ID города, на который сфокусирована фабрика |
 | source_id | tuple, ints | ID ресурса, откуда добывается руда |
 | level | int | Уровень прокачки завода |
-| coef | float | Коэффициент КПД завода |
+| coef | float | Коэффициент отработки завода, множитель стоимости апгрейда |
+| delta_coef | float | Изменение коэф. в секунду |
 | datetime | str | Время последнего обновления информации по фабрике в UTC (ISO 8601) |
 
 ## Структура объекта City

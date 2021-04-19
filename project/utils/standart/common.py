@@ -79,3 +79,76 @@ def get_source_ind(game, source_id):
         return res_find.index(True)
     except ValueError as D:
         return -1
+
+
+def get_user(game, session_token):
+    user_ind = get_user_ind(game, session_token)
+    return game["users"][user_ind]
+
+
+def get_user_by_username(game, username):
+    for i in game["users"]:
+        if i["username"] == username:
+            return i
+
+
+def get_factory(game, factory_id):
+    factory_id = get_factory_ind(game, factory_id)
+    return game["factories"][factory_id]
+
+
+def get_city(game, city_id):
+    city_id = get_city_ind(game, city_id)
+    return game["cities"][city_id]
+
+
+def get_source(game, source_id):
+    source_id = get_source_ind(game, source_id)
+    return game["sources"][source_id]
+
+
+def get_user_factories(game, username):
+    """Получение списка заводов игрока"""
+    factories = game["factories"]
+    return list(filter(lambda x: x["username"] == username, factories))
+
+
+def get_factories_near_source(game, source_id):
+    """Получение списка заводов подключенных к источнику"""
+    factories = game["factories"]
+    return list(filter(lambda x: x["source_id"] == source_id, factories))
+
+
+def get_factories_near_city(game, city_id):
+    """Получение списка заводов подключенных к источнику"""
+    factories = game["factories"]
+    return list(filter(lambda x: x["city_id"] == city_id, factories))
+
+
+def get_str_level_factory(factory):
+    """Преобразовать уровень завода в строковый вид"""
+    return "level_" + str(factory["level"])
+
+
+def get_level_diff(factory, city, cfg):
+    """Разница в уровне ресурса города и фабрики"""
+    return factory["level"] - city["resource_levels"][get_name_resource(factory, cfg)]
+
+
+def get_name_resource(factory, cfg):
+    """Получить название ресурса у фабрики"""
+    resource_id = factory["resource_id"]
+    for i in cfg["resource_ids"]:
+        if cfg["resource_ids"][i] == resource_id:
+            return i
+
+
+def get_profit_multi(level_diff, cfg):
+    """Мультипликатор выплаты от города"""
+    rates_dif = cfg["cities"]["rates_dif"]
+    return rates_dif ** level_diff
+
+
+def get_city_payout(products, mult, cfg):
+    """Выплата города"""
+    return cfg["cities"]["city_payout"] * mult * products
