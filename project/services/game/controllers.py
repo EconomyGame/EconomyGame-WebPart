@@ -3,7 +3,7 @@ from flask import request
 
 from project.app import serializer
 from project.decorators import auth_secure
-from project.utils.game import create_game, join_game, fetch_game, is_ready_update, leave_game, start_game
+from project.utils.objects.game import create_game, join_game, fetch_game, is_ready_update, leave_game, start_game
 
 
 api = Namespace('Game Lobby', description='Game Lobby service')

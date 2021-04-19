@@ -7,8 +7,8 @@ import os
 
 from project import config
 from project.extensions import ExtendedApi
-from project.utils.const import swagger_authorizations
-from project.utils.serialize import Serializer
+from project.utils.standart.const import swagger_authorizations
+from project.utils.standart.serialize import Serializer
 
 
 eventlet.monkey_patch()
@@ -39,8 +39,6 @@ from .errorhandlers import *
 from project.services.config.instance import register_config
 from project.services.game.instance import register_game_lobby
 from project.services.factories.instance import register_game_factories
-from .sockets import server
-
 
 register_config(api)
 register_game_lobby(api)

@@ -3,8 +3,8 @@ from flask import request
 
 from project.app import serializer
 from project.decorators import auth_secure, admin_secure
-from project.utils.mongo import fetch_config
-from project.utils.game import update_balance
+from project.utils.standart.mongo import fetch_config
+from project.utils.objects.game import update_balance
 
 
 api = Namespace('Config', description='Config service')

@@ -1,7 +1,7 @@
 from datetime import datetime as dt
 
-from project.utils.mongo import fetch_game_by_id, fetch_config, update_game
-from project.utils.common import validate_coords, get_random_string, get_user_ind, get_factory_ind, get_city_ind, get_source_ind
+from project.utils.standart.mongo import fetch_game_by_id, fetch_config, update_game
+from project.utils.standart import validate_coords, get_random_string, get_user_ind, get_factory_ind, get_city_ind, get_source_ind
 from project.sockets import broadcast_game
 
 

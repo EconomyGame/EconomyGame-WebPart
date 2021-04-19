@@ -3,7 +3,7 @@ from flask import request
 
 from project.app import serializer
 from project.decorators import auth_secure
-from project.utils.factory import make_factory, upgrade_factory, select_city, select_source
+from project.utils.objects.factory import make_factory, upgrade_factory, select_city, select_source
 
 
 api = Namespace('Game Factories', description='Game Factories service')

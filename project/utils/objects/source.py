@@ -1,7 +1,7 @@
 from datetime import datetime as dt
 
-from project.utils.mongo import fetch_config
-from project.utils.common import get_random_string
+from project.utils.standart.mongo import fetch_config
+from project.utils.standart import get_random_string
 
 
 def generate_sources(cfg=None):

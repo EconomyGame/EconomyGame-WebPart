@@ -1,4 +1,4 @@
-from project.utils.mongo import fetch_config
+from project.utils.standart.mongo import fetch_config
 
 
 def generate_resource_levels(cfg=None):

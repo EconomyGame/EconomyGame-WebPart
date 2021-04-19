@@ -2,7 +2,7 @@ import random
 import os
 import string
 
-from project.utils.mongo import fetch_game_by_id, fetch_config
+from project.utils.standart.mongo import fetch_game_by_id, fetch_config
 from project import config
 
 

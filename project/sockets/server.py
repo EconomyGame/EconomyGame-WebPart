@@ -1,5 +1,4 @@
-from project.app import socketio, app
-from project.utils.mongo import fetch_game_by_id
+from project.app import socketio
 
 
 @socketio.on('connect')

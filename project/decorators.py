@@ -3,7 +3,7 @@ from functools import wraps
 from flask import request
 
 from project import config
-from .utils.common import check_auth, check_admin_auth
+from .utils.standart import check_auth, check_admin_auth
 
 
 config_object = getattr(config, os.environ['APP_SETTINGS'])
