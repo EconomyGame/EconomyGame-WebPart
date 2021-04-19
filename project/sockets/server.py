@@ -1,4 +1,4 @@
-from project.app import socketio
+from project.app import socketio, app
 
 
 @socketio.on('connect')

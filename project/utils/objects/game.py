@@ -4,7 +4,7 @@ from bson.objectid import ObjectId
 
 from project.utils.standart.mongo import fetch_game_by_code, fetch_game_by_id, insert_game, update_game, fetch_config
 from project.utils.objects.user import new_user
-from project.utils.standart import get_random_string, get_user_ind
+from project.utils.standart.common import get_random_string, get_user_ind
 from project.utils.objects.city import generate_cities
 from project.utils.objects.source import generate_sources
 from project.sockets import broadcast_game

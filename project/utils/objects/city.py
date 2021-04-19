@@ -2,7 +2,7 @@ from datetime import datetime as dt
 
 from project.utils.standart.mongo import fetch_config
 from project.utils.objects.resource import generate_resource_levels, generate_resource_stages
-from project.utils.standart import get_random_string
+from project.utils.standart.common import get_random_string
 
 
 def generate_cities(cfg=None):
