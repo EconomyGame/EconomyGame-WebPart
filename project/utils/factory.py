@@ -92,6 +92,8 @@ def select_source(game_id, session_token, data):
     source_id = get_factory_ind(game, data["source_id"])
     source = game["sources"][source_id]
 
+    print(source)
+    print(factory)
     if not validate_resource(factory, source):
         return dict(status=False, message="Source error")
 
