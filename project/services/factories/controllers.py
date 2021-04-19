@@ -87,7 +87,7 @@ class SelectCityFactory(Resource):
         try:
             _request = select_city(game_id, session_token, data)
             if not _request["status"]:
-                return serializer.jsonify({"status": False, "message": "Select City error"})
+                return serializer.jsonify(_request)
 
             return serializer.jsonify(_request)
         except Exception as D:
@@ -116,7 +116,7 @@ class SelectSourceFactory(Resource):
         try:
             _request = select_source(game_id, session_token, data)
             if not _request["status"]:
-                return serializer.jsonify({"status": False, "message": "Select Source error"})
+                return serializer.jsonify(_request)
 
             return serializer.jsonify(_request)
         except Exception as D:
