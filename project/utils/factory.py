@@ -89,11 +89,9 @@ def select_source(game_id, session_token, data):
     if not validate_owner(user, factory):
         return dict(status=False, message="Access error")
 
-    source_id = get_factory_ind(game, data["source_id"])
+    source_id = get_source_ind(game, data["source_id"])
     source = game["sources"][source_id]
 
-    print(source)
-    print(factory)
     if not validate_resource(factory, source):
         return dict(status=False, message="Source error")
 
