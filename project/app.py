@@ -11,7 +11,7 @@ from project.utils.standart.const import swagger_authorizations
 from project.utils.standart.serialize import Serializer
 
 
-eventlet.monkey_patch()
+eventlet.monkey_patch(subprocess=True)
 app = Flask(__name__, subdomain_matching=True)
 app.config.from_object(getattr(config, os.environ['APP_SETTINGS']))
 app.secret_key = app.config['FLASK_SECRET_KEY']
