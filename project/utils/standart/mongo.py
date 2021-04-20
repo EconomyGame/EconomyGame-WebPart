@@ -30,4 +30,4 @@ def fetch_config():
 
 
 def get_active_games():
-    return mongo.db.games.find({"is_started": True, 'datetime': {'$gte': datetime.datetime.utcnow() - datetime.timedelta(hours=1)}})
+    return mongo.db.games.find({"is_started": True})
