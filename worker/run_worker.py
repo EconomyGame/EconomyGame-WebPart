@@ -1,7 +1,7 @@
 import time
 import threading
 
-from project.app import app, mongo
+from project.app import mongo
 from project.utils.standart.mongo import get_active_games, update_game
 
 waiting_time = 2
