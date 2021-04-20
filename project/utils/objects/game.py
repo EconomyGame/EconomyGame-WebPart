@@ -123,6 +123,15 @@ def update_balance(game_id, session_token, balance):
     return dict(status=True, game=game)
 
 
+def stop_game(game_id):
+    game = fetch_game_by_id(game_id)
+    game["is_started"] = False
+    update_game(str(game_id), game)
+    broadcast_game(game)
+
+    return dict(status=True, game=game)
+
+
 def generate_unique_code():
     """Генерация уникального кода, который еще не использовался или устарел"""
     code = get_random_string(5)

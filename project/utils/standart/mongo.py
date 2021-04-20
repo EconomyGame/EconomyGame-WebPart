@@ -1,4 +1,5 @@
 from bson.json_util import ObjectId
+import datetime
 
 from project.app import mongo
 
@@ -26,3 +27,7 @@ def update_game(game_id, data):
 def fetch_config():
     """Получение актуального конфига игры"""
     return mongo.db.config.find_one({})
+
+
+def get_active_games():
+    return mongo.db.games.find({"is_started": True, 'datetime': {'$gte': datetime.datetime.utcnow() - datetime.timedelta(hours=1)}})

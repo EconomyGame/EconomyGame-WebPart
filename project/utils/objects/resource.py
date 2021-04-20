@@ -17,3 +17,12 @@ def generate_resource_stages(cfg=None):
 
     resourse_names = sorted(cfg["resource_ids"].keys())
     return {x: 0 for x in resourse_names}
+
+
+def generate_resource_deltas(cfg=None):
+    """Генерация resource_delta"""
+    if cfg is None:
+        cfg = fetch_config()
+
+    resourse_names = sorted(cfg["resource_ids"].keys())
+    return {x: cfg["cities"]["requied_levels"]["level_1"] for x in resourse_names}

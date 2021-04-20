@@ -35,6 +35,7 @@ redis==3.5.3
 requests==2.25.1
 six==1.15.0
 soupsieve==2.2.1
+timeloop==1.0.2
 typing-extensions==3.7.4.3
 urllib3==1.26.4
 webencodings==0.5.1

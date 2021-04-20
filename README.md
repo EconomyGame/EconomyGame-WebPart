@@ -79,7 +79,7 @@
 | coords | tuple, ints | Координаты расположения города |
 | resource_levels | dict | Уровни прокачки ресурсов, в диапазоне [1, 4] |
 | resource_stage | dict | Уровни прокачки ресурсов, в диапазоне [0, level_max] |
-| resource_delta | float | Delta, на которую изменяется уровень за 1 секунду |
+| resource_delta | dict, floats or ints | Delta, на которую изменяется уровень ресурса за 1 секунду |
 | datetime | str | Время последнего обновления информации по городу в UTC (ISO 8601) |
 
 ## Структура объекта Source

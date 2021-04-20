@@ -1,7 +1,7 @@
 from datetime import datetime as dt
 
 from project.utils.standart.mongo import fetch_config
-from project.utils.objects.resource import generate_resource_levels, generate_resource_stages
+from project.utils.objects.resource import generate_resource_levels, generate_resource_stages, generate_resource_deltas
 from project.utils.standart.common import get_random_string
 
 
@@ -17,7 +17,7 @@ def generate_cities(cfg=None):
         "coords": coords,
         "resource_levels": generate_resource_levels(cfg),
         "resource_stage": generate_resource_stages(cfg),
-        "resource_delta": cfg["cities"]["requied_levels"]["level_1"],
+        "resource_delta": generate_resource_deltas(cfg),
         "datetime": dt.utcnow().isoformat()
     } for name, coords in prepared_cities]
     return cities
