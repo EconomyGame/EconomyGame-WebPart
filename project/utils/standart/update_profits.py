@@ -57,7 +57,7 @@ def update_source(game, source, cfg=None):
     city_list = []
     for i in factories:
         if get_factory_profit(game, i, cfg) != 0:
-            new_delta += cfg["max_products"][get_str_level_factory(i)]
+            new_delta += cfg["factories"]["max_products"][get_str_level_factory(i)]
             if i["city_id"] not in city_list:
                 city_list.append(i["city_id"])
 
@@ -119,7 +119,7 @@ def get_factory_deliver(city, factory, cfg=None):
     if cfg is None:
         cfg = fetch_config()
 
-    products = cfg["max_products"][get_str_level_factory(factory)]
+    products = cfg["factories"]["max_products"][get_str_level_factory(factory)]
     level_dif = get_level_diff(factory, city, cfg)
     mult = get_profit_multi(level_dif, cfg)
     return mult * products
