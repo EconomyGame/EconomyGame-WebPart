@@ -3,7 +3,7 @@ from flask import request
 
 from project.app import serializer
 from project.decorators import auth_secure, admin_secure
-from project.utils.standart.mongo import fetch_config
+from project.utils.standart.mongo import fetch_config, get_active_games
 from project.utils.objects.game import update_balance, stop_game
 
 
@@ -14,6 +14,12 @@ api = Namespace('Config', description='Config service')
 class FetchConfig(Resource):
     def get(self):
         return serializer.jsonify(fetch_config())
+
+
+@api.route('/active_games')
+class ActiveGames(Resource):
+    def get(self):
+        return serializer.jsonify(get_active_games())
 
 
 @api.route('/inc_balance')
