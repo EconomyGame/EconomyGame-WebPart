@@ -20,6 +20,7 @@ def worker_job():
                 j["resource_stage"][k] += j["resource_delta"][k] * waiting_time
         update_game(str(i["_id"]), i)
 
+
 if __name__ == "__main__":
     while True:
         threading.Thread(target=worker_job, args=()).start()

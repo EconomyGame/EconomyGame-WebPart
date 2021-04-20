@@ -30,4 +30,4 @@ def fetch_config():
 
 
 def get_active_games():
-    return mongo.db.games.find({"is_started": True})
+    return list(mongo.db.games.find({"is_started": True}))
