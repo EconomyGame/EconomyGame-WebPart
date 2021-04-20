@@ -51,7 +51,6 @@ class StopGame(Resource):
     @admin_secure
     def post(self):
         game_id = request.headers.get('Game')
-        balance = request.json.get("balance")
 
         try:
             _request = stop_game(game_id)
