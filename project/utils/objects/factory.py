@@ -1,7 +1,9 @@
 from datetime import datetime as dt
 
 from project.utils.standart.mongo import fetch_game_by_id, fetch_config, update_game
-from project.utils.standart.common import validate_coords, get_random_string, get_user_ind, get_factory_ind, get_city_ind, get_source_ind
+from project.utils.standart.common import validate_coords, get_random_string, get_user_ind, get_factory_ind, \
+    get_city_ind, get_source_ind
+from project.utils.standart.update_profits import update_factory
 from project.sockets import broadcast_game
 
 
@@ -69,6 +71,8 @@ def upgrade_factory(game_id, session_token, data, cfg=None):
     factory["coef"] *= cfg["factories"]["start_coef"]
 
     game["factories"][factory_id] = factory
+
+    update_factory(game, factory, cfg)
     update_game(str(game["_id"]), game)
     broadcast_game(game)
 
@@ -98,6 +102,8 @@ def select_source(game_id, session_token, data):
     factory["source_id"] = source["_id"]
 
     game["factories"][factory_id] = factory
+
+    update_factory(game, factory)
     update_game(str(game["_id"]), game)
     broadcast_game(game)
 
@@ -124,6 +130,8 @@ def select_city(game_id, session_token, data):
     factory["city_id"] = city["_id"]
 
     game["factories"][factory_id] = factory
+
+    update_factory(game, factory)
     update_game(str(game["_id"]), game)
     broadcast_game(game)
 
