@@ -10,6 +10,7 @@ waiting_time = 2
 def worker_job():
     games = get_active_games()
     for i in games:
+        print("Game #" + str(i["_id"]) + " in worker_job, current time: {}".format(time.time()))
         for j in i["users"]:
             j["balance"] += j["profit_per_sec"] * waiting_time
         for j in i["sources"]:
@@ -18,8 +19,6 @@ def worker_job():
             for k in j["resource_delta"]:
                 j["resource_stage"][k] += j["resource_delta"][k] * waiting_time
         update_game(str(i["_id"]), i)
-    print("worker job current time : {}".format(time.time()))
-
 
 if __name__ == "__main__":
     while True:
