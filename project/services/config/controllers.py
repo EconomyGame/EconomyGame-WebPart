@@ -19,7 +19,10 @@ class FetchConfig(Resource):
 @api.route('/active_games')
 class ActiveGames(Resource):
     def get(self):
-        return serializer.jsonify(get_active_games())
+        games = get_active_games()
+        for i in games:
+            i["_id"] = str(i["_id"])
+        return serializer.jsonify(games)
 
 
 @api.route('/inc_balance')
