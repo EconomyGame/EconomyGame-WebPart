@@ -102,7 +102,7 @@ def get_factory_profit(game, factory, cfg=None):
         return 0
 
     fees = get_transfer_fee(city["coords"], factory["coords"], cfg) + get_transfer_fee(factory["coords"], source["coords"], cfg)
-    products = cfg["max_products"][get_str_level_factory(factory)]
+    products = cfg["factories"]["max_products"][get_str_level_factory(factory)]
     level_dif = get_level_diff(factory, city, cfg)
     mult = get_profit_multi(level_dif, cfg)
 
