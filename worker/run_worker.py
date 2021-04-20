@@ -27,7 +27,7 @@ def worker_job():
         for j in i["cities"]:
             for k in j["resource_delta"]:
                 j["resource_stage"][k] += j["resource_delta"][k] * waiting_time
-                if j["resource_stage"][k] <= cfg["cities"]["upgrades_levels"]["level_" + str(j["resource_levels"][k])]:
+                if j["resource_stage"][k] >= cfg["cities"]["upgrades_levels"]["level_" + str(j["resource_levels"][k])]:
                     is_updated = True
                     j["resource_stage"][k] = 0
                     j["resource_levels"][k] += 1
