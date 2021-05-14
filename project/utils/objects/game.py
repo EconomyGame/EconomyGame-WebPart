@@ -158,7 +158,7 @@ def validate_to_join(game_object, username, config):
 def validate_to_start(game_object,):
     """Валидация готовности игры к старту"""
     try:
-        assert all(map(lambda x: x["is_ready"], game_object["users"]))
+        # assert all(map(lambda x: x["is_ready"], game_object["users"]))
         assert game_object["is_started"] is False
     except KeyError:
         raise AssertionError
