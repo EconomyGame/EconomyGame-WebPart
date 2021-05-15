@@ -63,9 +63,9 @@ def upgrade_factory(game_id, session_token, data, cfg=None):
     now_level = factory["level"]
     key_level = "level_" + str(now_level)
 
-    if not validate_balance(user, cfg["factories"]["factory_levels"][key_level] / factory["coef"]):
+    if not validate_balance(user, cfg["factories"]["factory_levels"][key_level]):
         return dict(status=False, message="Price error")
-    game["users"][user_ind]["balance"] -= (cfg["factories"]["factory_levels"][key_level] / factory["coef"])
+    game["users"][user_ind]["balance"] -= (cfg["factories"]["factory_levels"][key_level])
 
     factory["level"] += 1
     factory["coef"] *= cfg["factories"]["start_coef"]
